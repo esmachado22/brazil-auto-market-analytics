@@ -1,33 +1,54 @@
 # Brazil Auto Market Analytics
 
-Projeto de Data Engineering e Analytics para analisar a evolução do mercado automotivo brasileiro.
+Pipeline reproduzível de Data Engineering e Analytics para o mercado automotivo
+brasileiro, com foco em emplacamentos, eletrificados, frota e preço de
+referência.
 
-## Objetivo
+## O que está pronto
 
-Construir um pipeline reproduzível com dados públicos de emplacamentos e veículos eletrificados, evoluindo das camadas Bronze e Silver até um modelo Gold para consultas analíticas.
-
-## Escopo inicial
-
-- FENABRAVE: emplacamentos;
-- ABVE: veículos eletrificados;
-- classificação entre combustão, híbrido e elétrico;
-- métricas de volume, participação de mercado e evolução mensal;
-- execução planejada no Databricks Free Edition.
-
-O escopo será ampliado somente depois que o MVP principal estiver validado.
+- Bronze/Silver/Gold para FENABRAVE, ABVE e SENATRAN;
+- dimensões de tempo, marca e modelo;
+- fatos de emplacamentos, eletrificados, frota e preço FIPE de referência;
+- validações de dados, métricas, chaves, reconciliações e proveniência;
+- consultas SQL de mercado e volume x preço;
+- modelo semântico e especificação de dashboard Power BI;
+- análise executiva estruturada, determinística e sem invenção de dados.
 
 ## Estrutura
 
-Consulte `PROJECT.md` para a visão completa da arquitetura e `TASKS.md` para a sequência de execução.
-
 ```text
-docs/       documentação
-notebooks/  notebooks organizados por etapa do pipeline
-src/        código reutilizável
-tests/      testes e validações
-config/     configurações não sensíveis
-data/       instruções e referências dos dados
+src/ingestion/          ingestão Bronze e proveniência
+src/transformations/    Silver/Gold por fonte
+src/quality/             validações e relatórios
+src/analysis/            saída executiva estruturada
+sql/                    consultas analíticas
+docs/                   arquitetura, método, qualidade e BI
+examples/               entradas reproduzíveis
+data/                   dados locais; arquivos grandes não são versionados
 ```
 
-Dados brutos e arquivos grandes não devem ser versionados no Git.
+## Execução local
 
+Use o Python do ambiente configurado e execute:
+
+```powershell
+python -m unittest discover -s tests -v
+python -m src.analysis.executive_analysis `
+  --input examples/executive_metrics.json `
+  --output data/gold/executive_analysis.json
+```
+
+As consultas em `sql/analysis_queries.sql` e `sql/price_analysis.sql` foram
+escritas para tabelas Gold/Silver com os nomes documentados. O guia de
+Databricks está em `docs/databricks_setup.md`.
+
+## Fontes e limitações
+
+As fontes são FENABRAVE, ABVE, SENATRAN e FIPE; a matriz e URLs estão em
+`docs/data_sources.md`. O ranking FENABRAVE é um recorte publicado. Frota é
+estoque, não vendas. A FIPE fornece referência média, não preço de transação,
+e exige snapshots manuais validados por não haver API ou base integral usada
+por este projeto. Tecnologia não é inferida quando a fonte não a informa.
+
+O dashboard está especificado em `docs/power_bi_dashboard.md`; a publicação em
+workspace Power BI requer credenciais e workspace do usuário.

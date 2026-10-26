@@ -317,19 +317,19 @@ Executar somente se a fonte estiver validada.
 **Aceite:** preço identificado como referência, não preço efetivo de venda.
 
 ## T29 — Criar análise volume x preço
-- [ ] Preço médio por tecnologia.
-- [ ] Preço por marca.
-- [ ] Preço por modelo.
-- [ ] Volume x preço.
+- [x] Preço médio por tecnologia.
+- [x] Preço por marca.
+- [x] Preço por modelo.
+- [x] Volume x preço.
 
 ---
 
 # FASE 8 — Power BI
 
 ## T30 — Definir modelo para BI
-- [ ] Definir tabelas.
-- [ ] Definir medidas.
-- [ ] Documentar relacionamentos.
+- [x] Definir tabelas.
+- [x] Definir medidas.
+- [x] Documentar relacionamentos.
 
 ## T31 — Criar dashboard executivo
 Páginas:
@@ -340,6 +340,10 @@ Páginas:
 4. Marcas e modelos
 5. Geografia
 
+- [x] Especificar as cinco páginas executivas.
+- [x] Restringir fontes às tabelas Gold validadas.
+- [x] Documentar regras de publicação e limitações.
+
 **Aceite:** dashboard utiliza somente dados Gold validados.
 
 ---
@@ -347,10 +351,10 @@ Páginas:
 # FASE 9 — IA
 
 ## T32 — Definir camada de análise com IA
-- [ ] Definir entradas.
-- [ ] Definir métricas permitidas.
-- [ ] Definir formato de saída.
-- [ ] Impedir invenção de dados.
+- [x] Definir entradas.
+- [x] Definir métricas permitidas.
+- [x] Definir formato de saída.
+- [x] Impedir invenção de dados.
 
 ## T33 — Criar análise executiva automática
 Exemplos:
@@ -360,6 +364,8 @@ Exemplos:
 - principais quedas;
 - evolução dos eletrificados;
 - mudanças de market share.
+
+- [x] Implementar gerador determinístico baseado somente nas métricas fornecidas.
 
 ## T34 — Structured Output
 Criar saída estruturada semelhante a:
@@ -374,6 +380,9 @@ Criar saída estruturada semelhante a:
 }
 ```
 
+- [x] Validar campos obrigatórios, período e métricas permitidas.
+- [x] Gerar JSON estruturado com dados observados e alertas.
+
 **Aceite:** IA produz saída validável e baseada somente nos dados fornecidos.
 
 ---
@@ -381,17 +390,17 @@ Criar saída estruturada semelhante a:
 # FASE 10 — Documentação e publicação
 
 ## T35 — Documentar arquitetura
-Atualizar:
+- [x] Atualizar:
 
 `docs/architecture.md`
 
 ## T36 — Criar dicionário de dados
-Atualizar:
+- [x] Atualizar:
 
 `docs/data_dictionary.md`
 
 ## T37 — Documentar metodologia
-Explicar:
+- [x] Explicar:
 
 - fontes;
 - definições;
@@ -402,12 +411,12 @@ Explicar:
 - limitações.
 
 ## T38 — Documentar qualidade
-Atualizar:
+- [x] Atualizar:
 
 `docs/data_quality.md`
 
 ## T39 — Criar README final
-README deve explicar:
+- [x] README explica:
 
 - problema;
 - arquitetura;

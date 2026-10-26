@@ -1,0 +1,16 @@
+[
+  {
+    "periodo": "2026-08",
+    "metrica": "electrified_volume",
+    "nome": "BEV",
+    "valor": 27166,
+    "fonte": "ABVE"
+  },
+  {
+    "periodo": "2026-08",
+    "metrica": "electrified_volume",
+    "nome": "PHEV",
+    "valor": 20535,
+    "fonte": "ABVE"
+  }
+]
