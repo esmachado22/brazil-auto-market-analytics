@@ -207,9 +207,9 @@ Testar:
 **Aceite:** marcas sem duplicidade indevida.
 
 ## T19 — Criar dimensão de modelo
-- [ ] Criar chave.
-- [ ] Relacionar marca/modelo.
-- [ ] Preservar nomenclatura original.
+- [x] Criar chave.
+- [x] Relacionar marca/modelo.
+- [x] Preservar nomenclatura original.
 
 **Aceite:** relacionamento marca → modelo validado.
 
