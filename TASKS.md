@@ -430,13 +430,13 @@ Criar saída estruturada semelhante a:
 - limitações.
 
 ## T40 — Preparar release
-- [ ] Revisar código.
-- [ ] Remover credenciais.
-- [ ] Remover arquivos grandes.
-- [ ] Executar testes.
-- [ ] Validar documentação.
-- [ ] Criar release GitHub.
-- [ ] Criar exemplo de execução.
+- [x] Revisar código.
+- [x] Remover credenciais.
+- [x] Remover arquivos grandes do versionamento.
+- [x] Executar testes.
+- [x] Validar documentação.
+- [x] Criar release GitHub.
+- [x] Criar exemplo de execução.
 
 ---
 
@@ -444,24 +444,28 @@ Criar saída estruturada semelhante a:
 
 O projeto só deve ser considerado concluído quando:
 
-- [ ] Fontes documentadas.
-- [ ] FENABRAVE funcionando.
-- [ ] ABVE funcionando.
-- [ ] Bronze funcionando.
-- [ ] Silver funcionando.
-- [ ] Gold funcionando.
-- [ ] Qualidade implementada.
-- [ ] Idempotência implementada.
-- [ ] Market share validado.
-- [ ] Combustão x híbridos x elétricos funcionando.
-- [ ] SENATRAN integrado ou decisão documentada.
-- [ ] Preço integrado ou decisão documentada.
+- [x] Fontes documentadas.
+- [x] FENABRAVE funcionando.
+- [x] ABVE funcionando.
+- [x] Bronze funcionando.
+- [x] Silver funcionando.
+- [x] Gold funcionando.
+- [x] Qualidade implementada.
+- [x] Idempotência implementada.
+- [x] Market share validado.
+- [x] Combustão x híbridos x elétricos funcionando.
+- [x] SENATRAN integrado ou decisão documentada.
+- [x] Preço integrado ou decisão documentada.
 - [ ] Power BI publicado.
-- [ ] IA funcionando, se incluída.
-- [ ] README completo.
-- [ ] Projeto reproduzível.
-- [ ] Nenhuma credencial exposta.
-- [ ] Release pública pronta.
+- [x] IA funcionando, se incluída.
+- [x] README completo.
+- [x] Projeto reproduzível.
+- [x] Nenhuma credencial exposta.
+- [x] Release pública pronta.
+
+> Power BI está especificado e pronto para publicação em
+> `docs/power_bi_dashboard.md`; a publicação efetiva exige um workspace e
+> credenciais Power BI fornecidos pelo usuário.
 
 # Regra final
 
