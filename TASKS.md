@@ -191,11 +191,11 @@ Testar:
 # FASE 4 — Modelo Gold
 
 ## T17 — Criar dimensão de tempo
-- [ ] Criar calendário.
-- [ ] Ano.
-- [ ] Mês.
-- [ ] trimestre.
-- [ ] período de referência.
+- [x] Criar calendário.
+- [x] Ano.
+- [x] Mês.
+- [x] trimestre.
+- [x] período de referência.
 
 **Aceite:** calendário cobre todo o histórico carregado.
 
