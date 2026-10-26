@@ -19,6 +19,9 @@ data/raw/
 data/bronze/
 data/silver/
 data/gold/
+logs/
+*.log
+*.part
 *.csv
 *.parquet
 *.xlsx

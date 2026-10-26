@@ -102,11 +102,11 @@ Criar uma tabela contendo:
 # FASE 2 — Ingestão
 
 ## T09 — Criar framework de ingestão
-- [ ] Criar módulos reutilizáveis.
-- [ ] Criar logging.
-- [ ] Criar metadados.
-- [ ] Criar tratamento de erros.
-- [ ] Preparar estrutura para múltiplas fontes.
+- [x] Criar módulos reutilizáveis.
+- [x] Criar logging.
+- [x] Criar metadados.
+- [x] Criar tratamento de erros.
+- [x] Preparar estrutura para múltiplas fontes.
 
 **Aceite:** framework permite adicionar novas fontes sem duplicar lógica.
 
