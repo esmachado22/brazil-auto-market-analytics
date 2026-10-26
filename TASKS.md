@@ -216,12 +216,12 @@ Testar:
 ## T20 — Criar fato de emplacamentos
 Campos mínimos esperados:
 
-- período;
-- marca;
-- modelo;
-- categoria;
-- quantidade;
-- tecnologia, quando possível.
+- [x] período;
+- [x] marca;
+- [x] modelo;
+- [x] categoria;
+- [x] quantidade;
+- [x] tecnologia, quando possível.
 
 **Aceite:** consultas de ranking funcionam.
 
