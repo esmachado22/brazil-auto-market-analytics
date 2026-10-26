@@ -274,10 +274,10 @@ Comparar resultados Gold com os números publicados pelas fontes.
 ## T25 — Implementar ingestão SENATRAN
 Somente após o MVP principal funcionar.
 
-- [ ] Coletar dados reais.
-- [ ] Avaliar tamanho.
-- [ ] Gravar Bronze.
-- [ ] Documentar origem.
+- [x] Coletar dados reais.
+- [x] Avaliar tamanho.
+- [x] Gravar Bronze.
+- [x] Documentar origem.
 
 ## T26 — Criar Silver SENATRAN
 - [ ] Combustível.
