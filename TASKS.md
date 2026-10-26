@@ -1,0 +1,470 @@
+# TASKS.md — Brazil Auto Market Analytics
+
+## Como usar este arquivo
+
+As tarefas devem ser executadas em ordem.
+
+O Codex deve:
+- trabalhar uma tarefa por vez;
+- verificar o estado atual do repositório antes de alterar;
+- não implementar tarefas futuras sem necessidade;
+- executar testes/validações relacionados à tarefa;
+- atualizar documentação quando uma decisão técnica for tomada;
+- marcar a tarefa como concluída somente após validação.
+
+Status:
+- `[ ]` Backlog
+- `[~]` Em andamento
+- `[x]` Concluída
+
+---
+
+# FASE 0 — Preparação
+
+## T01 — Criar estrutura inicial do projeto
+- [x] Criar estrutura de diretórios definida em `PROJECT.md`.
+- [x] Criar `README.md`, `PROJECT.md` e `TASKS.md`.
+- [x] Criar `.gitignore`.
+- [x] Criar `data/README.md`.
+- [x] Não adicionar datasets grandes ao Git.
+
+**Aceite:** repositório organizado e pronto para desenvolvimento.
+
+## T02 — Configurar ambiente Databricks Free
+- [ ] Documentar como conectar o projeto ao Databricks Free.
+- [ ] Confirmar disponibilidade de notebooks/SQL.
+- [ ] Criar notebook de teste.
+- [ ] Executar operação simples em Python e PySpark.
+
+**Aceite:** notebook executa com sucesso no ambiente gratuito.
+
+## T03 — Configurar Git e GitHub
+- [ ] Inicializar repositório.
+- [ ] Configurar branch principal.
+- [ ] Fazer primeiro commit.
+- [ ] Criar README inicial.
+
+**Aceite:** projeto versionado e clonável.
+
+---
+
+# FASE 1 — Descoberta e validação das fontes
+
+## T04 — Mapear fonte FENABRAVE
+- [ ] Identificar páginas/arquivos oficiais.
+- [ ] Identificar períodos disponíveis.
+- [ ] Identificar formatos.
+- [ ] Registrar URLs.
+- [ ] Registrar limitações.
+- [ ] Documentar em `docs/data_sources.md`.
+
+**Aceite:** fonte FENABRAVE documentada e validada.
+
+## T05 — Mapear fonte ABVE
+- [ ] Identificar dados de eletrificados.
+- [ ] Identificar categorias.
+- [ ] Identificar histórico disponível.
+- [ ] Registrar URLs.
+- [ ] Documentar limitações.
+
+**Aceite:** fonte ABVE documentada.
+
+## T06 — Mapear fonte SENATRAN
+- [ ] Identificar arquivos de frota.
+- [ ] Identificar campos disponíveis.
+- [ ] Identificar histórico.
+- [ ] Identificar tamanho dos arquivos.
+- [ ] Documentar formato e limitações.
+
+**Aceite:** SENATRAN documentado sem assumir campos que não existam.
+
+## T07 — Avaliar fonte de preço
+- [ ] Pesquisar fontes públicas permitidas.
+- [ ] Verificar possibilidade de automação.
+- [ ] Verificar termos de uso.
+- [ ] Definir se entra no MVP ou fase posterior.
+- [ ] Documentar decisão.
+
+**Aceite:** decisão documentada sobre preço.
+
+## T08 — Criar matriz de fontes
+Criar uma tabela contendo:
+
+| Fonte | Dado | Período | Formato | Automação | Limitações |
+|---|---|---|---|---|---|
+
+**Aceite:** matriz atualizada com evidências reais.
+
+---
+
+# FASE 2 — Ingestão
+
+## T09 — Criar framework de ingestão
+- [ ] Criar módulos reutilizáveis.
+- [ ] Criar logging.
+- [ ] Criar metadados.
+- [ ] Criar tratamento de erros.
+- [ ] Preparar estrutura para múltiplas fontes.
+
+**Aceite:** framework permite adicionar novas fontes sem duplicar lógica.
+
+## T10 — Implementar ingestão FENABRAVE
+- [ ] Baixar/ler fonte real.
+- [ ] Preservar conteúdo original.
+- [ ] Registrar metadados.
+- [ ] Gravar Bronze.
+- [ ] Validar volume.
+
+**Aceite:** dados reais FENABRAVE disponíveis em Bronze.
+
+## T11 — Implementar ingestão ABVE
+- [ ] Coletar dados reais.
+- [ ] Preservar categorias originais.
+- [ ] Registrar período e origem.
+- [ ] Gravar Bronze.
+
+**Aceite:** dados reais ABVE disponíveis em Bronze.
+
+## T12 — Criar controle de idempotência
+- [ ] Definir chave de ingestão.
+- [ ] Impedir duplicação.
+- [ ] Criar teste executando a mesma ingestão duas vezes.
+
+**Aceite:** segunda execução não duplica registros.
+
+---
+
+# FASE 3 — Bronze → Silver
+
+## T13 — Padronizar FENABRAVE
+- [ ] Padronizar nomes.
+- [ ] Converter tipos.
+- [ ] Normalizar períodos.
+- [ ] Tratar nulos.
+- [ ] Remover duplicidades justificadas.
+- [ ] Preservar rastreabilidade.
+
+**Aceite:** tabela Silver validada.
+
+## T14 — Padronizar ABVE
+- [ ] Padronizar períodos.
+- [ ] Preservar categorias.
+- [ ] Criar classificação tecnológica padronizada.
+- [ ] Documentar regras.
+
+**Aceite:** tabela Silver validada.
+
+## T15 — Criar classificação de tecnologia
+Implementar:
+
+```text
+COMBUSTAO
+HIBRIDO
+ELETRICO
+OUTRO
+NAO_INFORMADO
+```
+
+**Aceite:** regra reproduzível e documentada.
+
+## T16 — Criar testes de qualidade
+Testar:
+
+- campos obrigatórios;
+- quantidade negativa;
+- duplicidade;
+- período;
+- chaves;
+- nulos críticos.
+
+**Aceite:** testes executáveis e com resultado registrado.
+
+---
+
+# FASE 4 — Modelo Gold
+
+## T17 — Criar dimensão de tempo
+- [ ] Criar calendário.
+- [ ] Ano.
+- [ ] Mês.
+- [ ] trimestre.
+- [ ] período de referência.
+
+**Aceite:** calendário cobre todo o histórico carregado.
+
+## T18 — Criar dimensão de marca
+- [ ] Criar chave.
+- [ ] Padronizar nomes.
+- [ ] Manter nome original quando necessário.
+
+**Aceite:** marcas sem duplicidade indevida.
+
+## T19 — Criar dimensão de modelo
+- [ ] Criar chave.
+- [ ] Relacionar marca/modelo.
+- [ ] Preservar nomenclatura original.
+
+**Aceite:** relacionamento marca → modelo validado.
+
+## T20 — Criar fato de emplacamentos
+Campos mínimos esperados:
+
+- período;
+- marca;
+- modelo;
+- categoria;
+- quantidade;
+- tecnologia, quando possível.
+
+**Aceite:** consultas de ranking funcionam.
+
+## T21 — Criar fato de eletrificados
+- [ ] Integrar dados ABVE.
+- [ ] Preservar classificação original.
+- [ ] Criar métricas mensais.
+
+**Aceite:** comparação entre tecnologias funciona.
+
+## T22 — Criar modelo analítico final
+- [ ] Validar dimensões.
+- [ ] Validar fatos.
+- [ ] Validar chaves.
+- [ ] Validar totais contra as fontes.
+
+**Aceite:** Gold pronta para análise.
+
+---
+
+# FASE 5 — Analytics
+
+## T23 — Criar consultas principais
+Criar SQL para:
+
+- top 10 modelos;
+- top 10 marcas;
+- volume mensal;
+- market share;
+- crescimento mensal;
+- combustão x híbrido x elétrico;
+- BEV/PHEV/HEV/MHEV;
+- evolução dos eletrificados.
+
+**Aceite:** consultas reproduzíveis.
+
+## T24 — Validar métricas
+Comparar resultados Gold com os números publicados pelas fontes.
+
+**Aceite:** divergências documentadas e justificadas.
+
+---
+
+# FASE 6 — SENATRAN
+
+## T25 — Implementar ingestão SENATRAN
+Somente após o MVP principal funcionar.
+
+- [ ] Coletar dados reais.
+- [ ] Avaliar tamanho.
+- [ ] Gravar Bronze.
+- [ ] Documentar origem.
+
+## T26 — Criar Silver SENATRAN
+- [ ] Combustível.
+- [ ] Marca/modelo.
+- [ ] UF.
+- [ ] Município.
+- [ ] Ano.
+- [ ] Potência, quando disponível.
+
+## T27 — Criar fato de frota
+Manter clara a diferença entre:
+
+```text
+FENABRAVE/ABVE = fluxo
+SENATRAN = estoque
+```
+
+**Aceite:** análises de frota não são confundidas com vendas.
+
+---
+
+# FASE 7 — Preço
+
+## T28 — Integrar preço de referência
+Executar somente se a fonte estiver validada.
+
+- [ ] Implementar ingestão.
+- [ ] Registrar fonte.
+- [ ] Criar Silver.
+- [ ] Criar fato de preços.
+- [ ] Documentar limitações.
+
+**Aceite:** preço identificado como referência, não preço efetivo de venda.
+
+## T29 — Criar análise volume x preço
+- [ ] Preço médio por tecnologia.
+- [ ] Preço por marca.
+- [ ] Preço por modelo.
+- [ ] Volume x preço.
+
+---
+
+# FASE 8 — Power BI
+
+## T30 — Definir modelo para BI
+- [ ] Definir tabelas.
+- [ ] Definir medidas.
+- [ ] Documentar relacionamentos.
+
+## T31 — Criar dashboard executivo
+Páginas:
+
+1. Mercado geral
+2. Combustão x eletrificados
+3. Eletrificados
+4. Marcas e modelos
+5. Geografia
+
+**Aceite:** dashboard utiliza somente dados Gold validados.
+
+---
+
+# FASE 9 — IA
+
+## T32 — Definir camada de análise com IA
+- [ ] Definir entradas.
+- [ ] Definir métricas permitidas.
+- [ ] Definir formato de saída.
+- [ ] Impedir invenção de dados.
+
+## T33 — Criar análise executiva automática
+Exemplos:
+
+- resumo mensal;
+- maiores crescimentos;
+- principais quedas;
+- evolução dos eletrificados;
+- mudanças de market share.
+
+## T34 — Structured Output
+Criar saída estruturada semelhante a:
+
+```json
+{
+  "periodo": "2026-08",
+  "resumo": "...",
+  "principais_movimentos": [],
+  "dados_observados": [],
+  "alertas": []
+}
+```
+
+**Aceite:** IA produz saída validável e baseada somente nos dados fornecidos.
+
+---
+
+# FASE 10 — Documentação e publicação
+
+## T35 — Documentar arquitetura
+Atualizar:
+
+`docs/architecture.md`
+
+## T36 — Criar dicionário de dados
+Atualizar:
+
+`docs/data_dictionary.md`
+
+## T37 — Documentar metodologia
+Explicar:
+
+- fontes;
+- definições;
+- market share;
+- tecnologia;
+- fluxo x estoque;
+- preço de referência;
+- limitações.
+
+## T38 — Documentar qualidade
+Atualizar:
+
+`docs/data_quality.md`
+
+## T39 — Criar README final
+README deve explicar:
+
+- problema;
+- arquitetura;
+- fontes;
+- tecnologias;
+- pipeline;
+- resultados;
+- dashboard;
+- IA;
+- como reproduzir;
+- limitações.
+
+## T40 — Preparar release
+- [ ] Revisar código.
+- [ ] Remover credenciais.
+- [ ] Remover arquivos grandes.
+- [ ] Executar testes.
+- [ ] Validar documentação.
+- [ ] Criar release GitHub.
+- [ ] Criar exemplo de execução.
+
+---
+
+# Definition of Done
+
+O projeto só deve ser considerado concluído quando:
+
+- [ ] Fontes documentadas.
+- [ ] FENABRAVE funcionando.
+- [ ] ABVE funcionando.
+- [ ] Bronze funcionando.
+- [ ] Silver funcionando.
+- [ ] Gold funcionando.
+- [ ] Qualidade implementada.
+- [ ] Idempotência implementada.
+- [ ] Market share validado.
+- [ ] Combustão x híbridos x elétricos funcionando.
+- [ ] SENATRAN integrado ou decisão documentada.
+- [ ] Preço integrado ou decisão documentada.
+- [ ] Power BI publicado.
+- [ ] IA funcionando, se incluída.
+- [ ] README completo.
+- [ ] Projeto reproduzível.
+- [ ] Nenhuma credencial exposta.
+- [ ] Release pública pronta.
+
+# Regra final
+
+Não aumentar o escopo antes de o MVP funcionar.
+
+A ordem prioritária é:
+
+```text
+Fontes
+  ↓
+FENABRAVE + ABVE
+  ↓
+Bronze
+  ↓
+Silver
+  ↓
+Gold
+  ↓
+Qualidade
+  ↓
+Analytics
+  ↓
+SENATRAN
+  ↓
+Preço
+  ↓
+Power BI
+  ↓
+IA
+```

@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Segredos e configurações locais
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dados locais e artefatos grandes
+data/raw/
+data/bronze/
+data/silver/
+data/gold/
+*.csv
+*.parquet
+*.xlsx
+*.xls
+*.zip
+*.gz
+
+# Databricks e ferramentas locais
+.databricks/
+.DS_Store
+Thumbs.db
+
