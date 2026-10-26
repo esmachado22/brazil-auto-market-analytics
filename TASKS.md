@@ -226,9 +226,9 @@ Campos mínimos esperados:
 **Aceite:** consultas de ranking funcionam.
 
 ## T21 — Criar fato de eletrificados
-- [ ] Integrar dados ABVE.
-- [ ] Preservar classificação original.
-- [ ] Criar métricas mensais.
+- [x] Integrar dados ABVE.
+- [x] Preservar classificação original.
+- [x] Criar métricas mensais.
 
 **Aceite:** comparação entre tecnologias funciona.
 
