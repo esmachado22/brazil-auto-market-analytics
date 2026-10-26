@@ -149,10 +149,10 @@ Criar uma tabela contendo:
 **Aceite:** tabela Silver validada.
 
 ## T14 — Padronizar ABVE
-- [ ] Padronizar períodos.
-- [ ] Preservar categorias.
-- [ ] Criar classificação tecnológica padronizada.
-- [ ] Documentar regras.
+- [x] Padronizar períodos.
+- [x] Preservar categorias.
+- [x] Criar classificação tecnológica padronizada.
+- [x] Documentar regras.
 
 **Aceite:** tabela Silver validada.
 
