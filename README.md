@@ -6,7 +6,7 @@ referência.
 
 ## O que está pronto
 
-- Bronze/Silver/Gold para FENABRAVE, ABVE e SENATRAN;
+- Bronze/Silver/Gold para FENABRAVE (janeiro a setembro de 2026), ABVE e SENATRAN;
 - dimensões de tempo, marca e modelo;
 - fatos de emplacamentos, eletrificados, frota e preço FIPE de referência;
 - validações de dados, métricas, chaves, reconciliações e proveniência;

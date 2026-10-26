@@ -48,6 +48,23 @@ class FenabraveSilverTests(unittest.TestCase):
         self.assertEqual(records[0]["quantity"], 5741)
         self.assertEqual(records[1]["category_standardized"], "COMERCIAIS_LEVES")
 
+    def test_parse_summary_derives_total_when_report_has_only_components(self) -> None:
+        text = "\n".join(
+            (
+                "A + B 100 90 190 80 160 11,11 25,00 18,75",
+                "C + D 20 18 38 15 30 11,11 33,33 26,67",
+                "E) Motos 50 45 95 40 80 11,11 25,00 18,75",
+                "F) Impl. Rod. 5 4 9 3 7 25,00 66,67 28,57",
+                "Outros 2 1 3 2 4 100,00 0,00 -25,00",
+            )
+        )
+
+        records = parse_summary_lines(text, metadata=self.metadata)
+
+        total = next(row for row in records if row["segment_standardized"] == "TOTAL")
+        self.assertEqual(total["quantity_month"], 177)
+        self.assertEqual(total["quantity_accumulated"], 335)
+
     def test_quality_validation_rejects_duplicate_keys(self) -> None:
         records = [
             {"reference_period": "2026-01", "source_file": "source.pdf", "rank": 1, "quantity": 10},

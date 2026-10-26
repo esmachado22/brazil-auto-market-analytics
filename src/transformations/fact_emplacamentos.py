@@ -70,6 +70,18 @@ def _read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(file_obj))
 
 
+def _read_rankings(silver_root: Path) -> list[dict[str, str]]:
+    """Read every FENABRAVE ranking discovered under the Silver root."""
+
+    paths = sorted(Path(silver_root).glob("*/model_rankings.csv"))
+    if not paths:
+        raise IngestionError(f"No FENABRAVE Silver rankings found under: {silver_root}")
+    rows: list[dict[str, str]] = []
+    for path in paths:
+        rows.extend(_read_csv(path))
+    return rows
+
+
 def write_fact(rows: list[dict[str, Any]], output_path: Path) -> None:
     if not rows:
         raise IngestionError("Cannot write an empty emplacamentos fact")
@@ -82,11 +94,17 @@ def write_fact(rows: list[dict[str, Any]], output_path: Path) -> None:
 
 
 def build_from_silver(
-    ranking_path: Path = Path("data/silver/fenabrave/2026-01/model_rankings.csv"),
+    ranking_path: Path | None = None,
     model_dimension_path: Path = Path("data/gold/dim_modelo.csv"),
     output_path: Path = Path("data/gold/fato_emplacamentos.csv"),
+    *,
+    silver_root: Path | None = None,
 ) -> dict[str, Any]:
-    ranking_records = _read_csv(Path(ranking_path))
+    if ranking_path is not None and silver_root is not None:
+        raise ValueError("Use ranking_path or silver_root, not both")
+    ranking_records = _read_csv(Path(ranking_path)) if ranking_path is not None else _read_rankings(
+        silver_root or Path("data/silver/fenabrave")
+    )
     model_dimension = _read_csv(Path(model_dimension_path))
     facts = build_fact_records(ranking_records, model_dimension)
     keys = [row["emplacamento_key"] for row in facts]
@@ -100,11 +118,22 @@ def build_from_silver(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build the FENABRAVE emplacamentos fact.")
-    parser.add_argument("--ranking", type=Path, default=Path("data/silver/fenabrave/2026-01/model_rankings.csv"))
+    parser.add_argument("--ranking", type=Path, help="Single ranking CSV; omit to read all Silver periods")
+    parser.add_argument("--silver-root", type=Path, default=Path("data/silver/fenabrave"))
     parser.add_argument("--model-dimension", type=Path, default=Path("data/gold/dim_modelo.csv"))
     parser.add_argument("--output", type=Path, default=Path("data/gold/fato_emplacamentos.csv"))
     args = parser.parse_args()
-    print(json.dumps(build_from_silver(args.ranking, args.model_dimension, args.output), ensure_ascii=False))
+    print(
+        json.dumps(
+            build_from_silver(
+                args.ranking,
+                args.model_dimension,
+                args.output,
+                silver_root=None if args.ranking else args.silver_root,
+            ),
+            ensure_ascii=False,
+        )
+    )
     return 0
 
 

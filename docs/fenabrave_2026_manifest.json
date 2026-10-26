@@ -1,0 +1,81 @@
+{
+  "source": "FENABRAVE",
+  "index_url": "https://www.fenabrave.org.br/portalv2/Conteudo/Emplacamentos",
+  "collected_at": "2026-10-26",
+  "available_through": "2026-09",
+  "note": "October 2026 was not listed in the official monthly index at collection time.",
+  "reports": [
+    {
+      "reference_period": "2026-01",
+      "source_file": "2026_01_02.pdf",
+      "source_url": "https://www.fenabrave.org.br/portal/files/2026_01_02.pdf",
+      "bytes": 4831101,
+      "sha256": "0300494d57f731299645439742fda9484d5cc35637ec7902ae5cb59ce696dbe4",
+      "published_total": 366713
+    },
+    {
+      "reference_period": "2026-02",
+      "source_file": "2026_02_02.pdf",
+      "source_url": "https://www.fenabrave.org.br/portal/files/2026_02_02.pdf",
+      "bytes": 2868846,
+      "sha256": "e7d962b956607b7f0005ad0edda8faad5dc2e397381f003bb3b0e257f01808cd",
+      "published_total": 374931
+    },
+    {
+      "reference_period": "2026-03",
+      "source_file": "2026_03_02.pdf",
+      "source_url": "https://www.fenabrave.org.br/portal/files/2026_03_02.pdf",
+      "bytes": 3000787,
+      "sha256": "2127128785ae5266c384b83e0627299d2e37176f01c3d12fe366f40e708a4515",
+      "published_total": 513099
+    },
+    {
+      "reference_period": "2026-04",
+      "source_file": "2026_04_02.pdf",
+      "source_url": "https://www.fenabrave.org.br/portal/files/2026_04_02.pdf",
+      "bytes": 2984525,
+      "sha256": "c0645d4fe2ee5254881a8ba029ef954d345531814278d7a6875f012f89229184",
+      "published_total": 479662
+    },
+    {
+      "reference_period": "2026-05",
+      "source_file": "2026_05_02.pdf",
+      "source_url": "https://www.fenabrave.org.br/portal/files/2026_05_02.pdf",
+      "bytes": 3022390,
+      "sha256": "09bb4774998a7cec362b38d54689c3a9a0e97543d9e396fd832ad5529d485d0c",
+      "published_total": 492426
+    },
+    {
+      "reference_period": "2026-06",
+      "source_file": "2026_06_02.pdf",
+      "source_url": "https://www.fenabrave.org.br/portal/files/2026_06_02.pdf",
+      "bytes": 2992072,
+      "sha256": "8c9f0e6ce9b0ebd43a201f13eb827de8fcd73543d8adffee671e058aa187ffb7",
+      "published_total": 488420
+    },
+    {
+      "reference_period": "2026-07",
+      "source_file": "2026_07_02.pdf",
+      "source_url": "https://www.fenabrave.org.br/portal/files/2026_07_02.pdf",
+      "bytes": 2920113,
+      "sha256": "996d04f814bd176381a50bbc373c5c55a83e56d491eec05ff369e4df297b5a53",
+      "published_total": 504574
+    },
+    {
+      "reference_period": "2026-08",
+      "source_file": "2026_08_02.pdf",
+      "source_url": "https://www.fenabrave.org.br/portal/files/2026_08_02.pdf",
+      "bytes": 3039776,
+      "sha256": "299260bb4bdcf7754fe1d58bd41916368c19e749445d42c3b70e48ac2f1ee630",
+      "published_total": 503768
+    },
+    {
+      "reference_period": "2026-09",
+      "source_file": "2026_09_02.pdf",
+      "source_url": "https://www.fenabrave.org.br/portal/files/2026_09_02.pdf",
+      "bytes": 3096283,
+      "sha256": "5b2e267ea04bd82393b96c7ffb8b61d4abc95373d0c422a7f7e664ab5d6b00af",
+      "published_total": 509686
+    }
+  ]
+}

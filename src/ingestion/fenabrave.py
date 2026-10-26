@@ -13,7 +13,7 @@ from urllib.request import Request, urlopen
 from .framework import IngestionError, IngestionFramework, IngestionRecord, SourceSpec
 
 
-FENABRAVE_INDEX_URL = "https://www.fenabrave.org.br/Portal/conteudo/emplacamentos"
+FENABRAVE_INDEX_URL = "https://www.fenabrave.org.br/portalv2/Conteudo/Emplacamentos"
 PERIOD_PATTERN = re.compile(r"(?P<year>20\d{2})[_-](?P<month>0[1-9]|1[0-2])")
 
 

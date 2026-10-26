@@ -39,6 +39,14 @@ SUMMARY_FIELDS = (
     "variation_accumulated_vs_previous_year_pct",
 )
 
+DERIVED_TOTAL_COMPONENTS = (
+    "AUTOMOVEIS_E_COMERCIAIS_LEVES",
+    "CAMINHOES_E_ONIBUS",
+    "MOTOS",
+    "IMPLEMENTOS_RODOVIARIOS",
+    "OUTROS",
+)
+
 
 @dataclass(frozen=True)
 class SourceMetadata:
@@ -116,6 +124,27 @@ def parse_summary_lines(
         }
         record.update(dict(zip(SUMMARY_FIELDS, values)))
         records.append(record)
+
+    if not any(record["segment_standardized"] == "TOTAL" for record in records):
+        by_segment = {record["segment_standardized"]: record for record in records}
+        if all(segment in by_segment for segment in DERIVED_TOTAL_COMPONENTS):
+            total_record = {
+                "reference_period": metadata.reference_period,
+                "source_name": metadata.source_name,
+                "source_url": metadata.source_url,
+                "source_file": metadata.source_file,
+                "source_hash": metadata.file_hash,
+                "source_page": source_page,
+                "segment_original": "TOTAL (DERIVADO DOS SEGMENTOS PUBLICADOS)",
+                "segment_standardized": "TOTAL",
+            }
+            for field in SUMMARY_FIELDS[:5]:
+                total_record[field] = sum(
+                    int(by_segment[segment][field]) for segment in DERIVED_TOTAL_COMPONENTS
+                )
+            for field in SUMMARY_FIELDS[5:]:
+                total_record[field] = None
+            records.append(total_record)
 
     return records
 

@@ -12,7 +12,7 @@
 
 | Recurso | URL | Uso |
 |---|---|---|
-| Índices e números / Emplacamentos | <https://www.fenabrave.org.br/Portal/conteudo/emplacamentos> | Índice público dos relatórios mensais |
+| Índices e números / Emplacamentos | <https://www.fenabrave.org.br/portalv2/Conteudo/Emplacamentos> | Índice público dos relatórios mensais |
 | Relatório mensal de exemplo | <https://www.fenabrave.org.br/portal/files/2026_01_02.pdf> | PDF oficial de janeiro de 2026 |
 | Imprensa | <https://www.fenabrave.org.br/portalv2/home/imprensa> | Comunicados e números consolidados |
 | Dados de Mercado Personalizados (DMP) | <https://www.fenabrave.org.br/Dados/index2.html> | Consulta detalhada por período, região e município |

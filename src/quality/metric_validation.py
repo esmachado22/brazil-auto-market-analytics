@@ -35,28 +35,37 @@ def validate_metric_records(
     comparisons: list[dict[str, Any]] = []
     limitations: list[str] = []
 
-    source_total_rows = [
+    fenabrave_total_rows = [
         row for row in fenabrave_segment_rows if row.get("segment_standardized") == "TOTAL"
     ]
-    source_total = _quantity(source_total_rows[0]) if source_total_rows else None
-    ranked_total = sum(_quantity(row) for row in fenabrave_registration_rows)
-    coverage_pct = (
-        _round_pct(ranked_total / source_total * 100) if source_total else None
-    )
-    fenabrave_status = source_total is not None and 0 <= ranked_total <= source_total
-    comparisons.append(
-        {
-            "metric": "fenabrave_2026_01_total",
-            "source_value": source_total,
-            "gold_value": ranked_total,
-            "delta": None if source_total is None else ranked_total - source_total,
-            "status": "PASS" if fenabrave_status else "FAIL",
-            "coverage_pct": coverage_pct,
-            "notes": "Gold is a model-ranking subset; it is not expected to equal the official all-segment total.",
-        }
-    )
-    if not fenabrave_status:
-        issues.append("fenabrave_ranked_subset_exceeds_or_lacks_source_total")
+    source_by_period: dict[str, int] = {}
+    for row in fenabrave_total_rows:
+        period = str(row.get("reference_period") or "2026-01")
+        source_by_period[period] = _quantity(row)
+    ranked_by_period: dict[str, int] = {}
+    for row in fenabrave_registration_rows:
+        period = str(row.get("reference_period") or "2026-01")
+        ranked_by_period[period] = ranked_by_period.get(period, 0) + _quantity(row)
+
+    fenabrave_periods = sorted(set(source_by_period) | set(ranked_by_period))
+    for period in fenabrave_periods:
+        source_total = source_by_period.get(period)
+        ranked_total = ranked_by_period.get(period, 0)
+        coverage_pct = _round_pct(ranked_total / source_total * 100) if source_total else None
+        fenabrave_status = source_total is not None and 0 <= ranked_total <= source_total
+        comparisons.append(
+            {
+                "metric": f"fenabrave_{period.replace('-', '_')}_total",
+                "source_value": source_total,
+                "gold_value": ranked_total,
+                "delta": None if source_total is None else ranked_total - source_total,
+                "status": "PASS" if fenabrave_status else "FAIL",
+                "coverage_pct": coverage_pct,
+                "notes": "Gold is a model-ranking subset; it is not expected to equal the official all-segment total.",
+            }
+        )
+        if not fenabrave_status:
+            issues.append(f"fenabrave_ranked_subset_exceeds_or_lacks_source_total:{period}")
     limitations.append(
         "FENABRAVE fato_emplacamentos contains published model rankings, not the complete universe of registrations."
     )
@@ -89,9 +98,9 @@ def validate_metric_records(
         if not ok:
             issues.append(f"abve_category_mismatch:{category}")
 
-    source_total_rows = [row for row in abve_source_rows if row.get("category_original") == "TOTAL"]
+    abve_total_source_rows = [row for row in abve_source_rows if row.get("category_original") == "TOTAL"]
     gold_total_rows = [row for row in abve_gold_rows if row.get("category_original") == "TOTAL"]
-    abve_source_total = _quantity(source_total_rows[0]) if source_total_rows else None
+    abve_source_total = _quantity(abve_total_source_rows[0]) if abve_total_source_rows else None
     abve_gold_total = _quantity(gold_total_rows[0]) if gold_total_rows else None
     abve_components_total = sum(source_by_category.values())
     total_ok = (
@@ -142,7 +151,13 @@ def validate_metric_records(
         "comparisons": comparisons,
         "limitations": limitations,
         "sources": {
-            "fenabrave": "https://www.fenabrave.org.br/portal/files/2026_01_02.pdf",
+            "fenabrave": sorted(
+                {
+                    str(row.get("source_url"))
+                    for row in fenabrave_total_rows
+                    if row.get("source_url")
+                }
+            ),
             "abve": "https://abve.org.br/com-57-mil-emplacamentos-em-agosto-eletrificados-abrem-a-corrida-para-o-milhao-em-setembro/",
         },
     }
@@ -150,8 +165,11 @@ def validate_metric_records(
 
 def validate_metric_root(root: Path = Path("data")) -> dict[str, Any]:
     root = Path(root)
+    fenabrave_segment_rows: list[dict[str, str]] = []
+    for path in sorted((root / "silver/fenabrave").glob("*/segment_totals.csv")):
+        fenabrave_segment_rows.extend(_read_csv(path))
     return validate_metric_records(
-        fenabrave_segment_rows=_read_csv(root / "silver/fenabrave/2026-01/segment_totals.csv"),
+        fenabrave_segment_rows=fenabrave_segment_rows,
         fenabrave_registration_rows=_read_csv(root / "gold/fato_emplacamentos.csv"),
         abve_source_rows=_read_csv(root / "silver/abve/2026-08/technology_monthly.csv"),
         abve_gold_rows=_read_csv(root / "gold/fato_eletrificados.csv"),

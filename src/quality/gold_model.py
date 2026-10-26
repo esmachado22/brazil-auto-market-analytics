@@ -80,10 +80,20 @@ def validate_gold_records(
         issues.append("abve_total_mismatch")
 
     source_total_rows = [row for row in segment_rows if row.get("segment_standardized") == "TOTAL"]
-    source_total = int(source_total_rows[0]["quantity_month"]) if source_total_rows else None
-    checks["fenabrave_source_total_present"] = source_total is not None
-    if source_total is None:
+    source_totals_by_period = {
+        str(row.get("reference_period") or "2026-01"): int(row["quantity_month"])
+        for row in source_total_rows
+    }
+    registration_periods = {
+        str(row.get("reference_period") or "2026-01") for row in registration_rows
+    }
+    missing_source_periods = sorted(registration_periods - set(source_totals_by_period))
+    checks["fenabrave_source_total_present"] = bool(source_totals_by_period)
+    checks["fenabrave_source_totals_cover_fact_periods"] = not missing_source_periods
+    if not source_totals_by_period:
         issues.append("fenabrave_source_total_missing")
+    if missing_source_periods:
+        issues.append(f"fenabrave_source_total_missing_periods:{','.join(missing_source_periods)}")
 
     checks["registration_fact_is_ranked_subset"] = all(
         int(row.get("rank", 0)) > 0 and int(row.get("quantity", 0)) >= 0 for row in registration_rows
@@ -106,7 +116,7 @@ def validate_gold_records(
         "reconciliations": {
             "abve_component_total": component_total,
             "abve_published_total": published_total,
-            "fenabrave_published_total": source_total,
+            "fenabrave_published_total": source_totals_by_period,
         },
     }
 
@@ -121,7 +131,11 @@ def validate_gold_root(root: Path = Path("data")) -> dict[str, Any]:
         model_rows=_read_csv(gold / "dim_modelo.csv"),
         registration_rows=_read_csv(gold / "fato_emplacamentos.csv"),
         electrified_rows=_read_csv(gold / "fato_eletrificados.csv"),
-        segment_rows=_read_csv(silver / "fenabrave/2026-01/segment_totals.csv"),
+        segment_rows=[
+            row
+            for path in sorted((silver / "fenabrave").glob("*/segment_totals.csv"))
+            for row in _read_csv(path)
+        ],
     )
 
 

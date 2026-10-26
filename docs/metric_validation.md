@@ -4,7 +4,10 @@ O módulo `src/quality/metric_validation.py` compara os valores publicados nas c
 
 ## Resultado do MVP
 
-- FENABRAVE janeiro de 2026: o total oficial publicado é **366.713**. O fato Gold soma apenas os modelos do ranking carregado; portanto, sua soma é tratada como subconjunto e a cobertura é reportada no JSON, sem expectativa de igualdade com o total oficial.
+- FENABRAVE janeiro a setembro de 2026: os totais oficiais publicados são
+  validados por período. O fato Gold soma apenas os modelos do ranking de cada
+  mês; portanto, cada soma é tratada como subconjunto e a cobertura é reportada
+  no JSON, sem expectativa de igualdade com o total oficial.
 - ABVE agosto de 2026: BEV, PHEV, HEV e HEV Flex no Gold reproduzem as categorias Silver e somam **57.386**, igual ao total publicado.
 - ABVE MHEV: **6.669 = 4.017 + 2.652**. Esse grupo é mantido separado porque não está incluído no total de eletrificados usado pela fonte.
 
