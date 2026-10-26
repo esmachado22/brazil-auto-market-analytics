@@ -200,9 +200,9 @@ Testar:
 **Aceite:** calendário cobre todo o histórico carregado.
 
 ## T18 — Criar dimensão de marca
-- [ ] Criar chave.
-- [ ] Padronizar nomes.
-- [ ] Manter nome original quando necessário.
+- [x] Criar chave.
+- [x] Padronizar nomes.
+- [x] Manter nome original quando necessário.
 
 **Aceite:** marcas sem duplicidade indevida.
 
