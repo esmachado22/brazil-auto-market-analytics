@@ -120,10 +120,10 @@ Criar uma tabela contendo:
 **Aceite:** dados reais FENABRAVE disponíveis em Bronze.
 
 ## T11 — Implementar ingestão ABVE
-- [ ] Coletar dados reais.
-- [ ] Preservar categorias originais.
-- [ ] Registrar período e origem.
-- [ ] Gravar Bronze.
+- [x] Coletar dados reais.
+- [x] Preservar categorias originais.
+- [x] Registrar período e origem.
+- [x] Gravar Bronze.
 
 **Aceite:** dados reais ABVE disponíveis em Bronze.
 
