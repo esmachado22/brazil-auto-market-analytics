@@ -139,12 +139,12 @@ Criar uma tabela contendo:
 # FASE 3 — Bronze → Silver
 
 ## T13 — Padronizar FENABRAVE
-- [ ] Padronizar nomes.
-- [ ] Converter tipos.
-- [ ] Normalizar períodos.
-- [ ] Tratar nulos.
-- [ ] Remover duplicidades justificadas.
-- [ ] Preservar rastreabilidade.
+- [x] Padronizar nomes.
+- [x] Converter tipos.
+- [x] Normalizar períodos.
+- [x] Tratar nulos.
+- [x] Remover duplicidades justificadas.
+- [x] Preservar rastreabilidade.
 
 **Aceite:** tabela Silver validada.
 
