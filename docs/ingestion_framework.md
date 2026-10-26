@@ -11,6 +11,8 @@ O framework em `src/ingestion/framework.py` concentra a lógica comum de ingest�
 - metadados: grava um arquivo `.metadata.json` ao lado do original;
 - logging: registra início, sucesso e falha;
 - erros: usa `IngestionError` e `SourceFileExistsError` sem esconder falhas.
+- idempotência: usa a chave `source_name|reference_period|source_file`; uma execução repetida com a mesma provenance retorna o metadata existente sem baixar ou duplicar o arquivo;
+- conflitos: um arquivo existente sem metadata, com metadata inválido ou com outra provenance é rejeitado.
 
 ## Exemplo
 

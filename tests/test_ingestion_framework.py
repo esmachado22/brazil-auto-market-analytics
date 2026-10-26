@@ -60,6 +60,35 @@ class IngestionFrameworkTests(unittest.TestCase):
 
         self.assertEqual(destination.read_text(encoding="utf-8"), "original")
 
+    def test_same_ingestion_is_idempotent(self) -> None:
+        source = self.root / "source.csv"
+        source.write_text("id,value\n1,10\n", encoding="utf-8")
+
+        first_record = self.framework.ingest_local_file(source, self.spec)
+        source.write_text("id,value\n1,999\n", encoding="utf-8")
+        second_record = self.framework.ingest_local_file(source, self.spec)
+
+        self.assertEqual(first_record.ingestion_key, "TEST_SOURCE|2026-01|source.csv")
+        self.assertEqual(first_record, second_record)
+        destination = self.root / "data" / "raw" / "source.csv"
+        self.assertEqual(destination.read_text(encoding="utf-8"), "id,value\n1,10\n")
+
+    def test_same_file_with_different_provenance_is_rejected(self) -> None:
+        source = self.root / "source.csv"
+        source.write_text("id,value\n1,10\n", encoding="utf-8")
+        self.framework.ingest_local_file(source, self.spec)
+
+        conflicting_spec = SourceSpec(
+            source_name="OTHER_SOURCE",
+            source_url=self.spec.source_url,
+            reference_period=self.spec.reference_period,
+            source_file=self.spec.source_file,
+            destination_dir=self.spec.destination_dir,
+        )
+
+        with self.assertRaises(SourceFileExistsError):
+            self.framework.ingest_local_file(source, conflicting_spec)
+
     def test_missing_source_raises_ingestion_error(self) -> None:
         with self.assertRaises(IngestionError):
             self.framework.ingest_local_file(self.root / "missing.csv", self.spec)

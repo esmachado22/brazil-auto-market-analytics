@@ -7,6 +7,7 @@ from .framework import (
     SourceFileExistsError,
     SourceSpec,
     configure_logger,
+    ingestion_key,
     sha256_file,
 )
 
@@ -17,6 +18,7 @@ __all__ = [
     "SourceFileExistsError",
     "SourceSpec",
     "configure_logger",
+    "ingestion_key",
     "sha256_file",
 ]
 

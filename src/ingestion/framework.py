@@ -62,6 +62,7 @@ class IngestionRecord:
     file_hash: str
     file_size_bytes: int
     ingestion_timestamp: str
+    ingestion_key: str = ""
 
 
 def configure_logger(log_path: Path | None = None) -> logging.Logger:
@@ -106,6 +107,12 @@ def sha256_file(path: Path, chunk_size: int = CHUNK_SIZE) -> str:
     return digest.hexdigest()
 
 
+def ingestion_key(spec: SourceSpec) -> str:
+    """Build the stable key used to prevent duplicate ingestion."""
+
+    return f"{spec.source_name}|{spec.reference_period}|{spec.source_file}"
+
+
 class IngestionFramework:
     """Store source files while preserving provenance and audit metadata."""
 
@@ -123,7 +130,9 @@ class IngestionFramework:
         if not source_path.is_file():
             raise IngestionError(f"Source file does not exist: {source_path}")
 
-        destination = self._destination_path(spec)
+        destination, existing_record = self._prepare_destination(spec)
+        if existing_record is not None:
+            return existing_record
         self.logger.info("Ingesting local file %s", source_path)
         try:
             with source_path.open("rb") as source_stream, destination.with_suffix(
@@ -148,7 +157,9 @@ class IngestionFramework:
     ) -> IngestionRecord:
         """Download one source file using the standard library HTTP client."""
 
-        destination = self._destination_path(spec)
+        destination, existing_record = self._prepare_destination(spec)
+        if existing_record is not None:
+            return existing_record
         partial_path = destination.with_suffix(destination.suffix + ".part")
         request = Request(spec.source_url, headers={"User-Agent": "BrazilAutoMarketAnalytics/1.0"})
         self.logger.info("Downloading %s", spec.source_url)
@@ -164,16 +175,69 @@ class IngestionFramework:
 
         return self._write_metadata(spec, destination)
 
-    def _destination_path(self, spec: SourceSpec) -> Path:
+    def _prepare_destination(self, spec: SourceSpec) -> tuple[Path, IngestionRecord | None]:
         destination_dir = Path(spec.destination_dir)
         destination_dir.mkdir(parents=True, exist_ok=True)
         destination = destination_dir / spec.source_file
         if destination.exists():
+            return destination, self._load_existing_record(spec, destination)
+        metadata_path = destination.with_name(destination.name + ".metadata.json")
+        if metadata_path.exists():
             raise SourceFileExistsError(
-                f"Destination already exists: {destination}. "
-                "Use a new source_file to preserve the existing source file."
+                f"Metadata exists without its source file: {metadata_path}"
             )
-        return destination
+        return destination, None
+
+    def _load_existing_record(self, spec: SourceSpec, destination: Path) -> IngestionRecord:
+        metadata_path = destination.with_name(destination.name + ".metadata.json")
+        if not metadata_path.is_file():
+            raise SourceFileExistsError(
+                f"Destination already exists without metadata: {destination}"
+            )
+
+        try:
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+            metadata_key = metadata.get("ingestion_key")
+            existing_key = metadata_key or ingestion_key(spec)
+            record = IngestionRecord(
+                source_name=metadata["source_name"],
+                source_url=metadata["source_url"],
+                reference_period=metadata["reference_period"],
+                source_file=metadata["source_file"],
+                local_path=metadata["local_path"],
+                metadata_path=metadata["metadata_path"],
+                file_hash=metadata["file_hash"],
+                file_size_bytes=metadata["file_size_bytes"],
+                ingestion_timestamp=metadata["ingestion_timestamp"],
+                ingestion_key=existing_key,
+            )
+        except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+            raise SourceFileExistsError(
+                f"Could not validate existing metadata: {metadata_path}"
+            ) from exc
+
+        expected_key = ingestion_key(spec)
+        if (
+            record.ingestion_key != expected_key
+            or record.source_name != spec.source_name
+            or record.source_url != spec.source_url
+            or record.reference_period != spec.reference_period
+            or record.source_file != spec.source_file
+            or record.file_hash != sha256_file(destination)
+        ):
+            raise SourceFileExistsError(
+                f"Existing destination has different provenance: {destination}"
+            )
+
+        if not metadata_key:
+            metadata["ingestion_key"] = expected_key
+            metadata_path.write_text(
+                json.dumps(metadata, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+
+        self.logger.info("Idempotent ingestion already present: %s", destination)
+        return record
 
     def _write_metadata(self, spec: SourceSpec, destination: Path) -> IngestionRecord:
         ingestion_timestamp = datetime.now(timezone.utc).isoformat()
@@ -187,6 +251,7 @@ class IngestionFramework:
             file_hash=sha256_file(destination),
             file_size_bytes=destination.stat().st_size,
             ingestion_timestamp=ingestion_timestamp,
+            ingestion_key=ingestion_key(spec),
         )
         metadata_path = Path(record.metadata_path)
         metadata_path.write_text(

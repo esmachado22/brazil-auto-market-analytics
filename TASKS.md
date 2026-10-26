@@ -128,9 +128,9 @@ Criar uma tabela contendo:
 **Aceite:** dados reais ABVE disponíveis em Bronze.
 
 ## T12 — Criar controle de idempotência
-- [ ] Definir chave de ingestão.
-- [ ] Impedir duplicação.
-- [ ] Criar teste executando a mesma ingestão duas vezes.
+- [x] Definir chave de ingestão.
+- [x] Impedir duplicação.
+- [x] Criar teste executando a mesma ingestão duas vezes.
 
 **Aceite:** segunda execução não duplica registros.
 
