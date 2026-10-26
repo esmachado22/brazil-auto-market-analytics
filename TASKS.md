@@ -70,30 +70,32 @@ Status:
 **Aceite:** fonte ABVE documentada.
 
 ## T06 — Mapear fonte SENATRAN
-- [ ] Identificar arquivos de frota.
-- [ ] Identificar campos disponíveis.
-- [ ] Identificar histórico.
-- [ ] Identificar tamanho dos arquivos.
-- [ ] Documentar formato e limitações.
+- [x] Identificar arquivos de frota.
+- [x] Identificar campos disponíveis.
+- [x] Identificar histórico.
+- [x] Identificar tamanho dos arquivos.
+- [x] Documentar formato e limitações.
 
 **Aceite:** SENATRAN documentado sem assumir campos que não existam.
 
 ## T07 — Avaliar fonte de preço
-- [ ] Pesquisar fontes públicas permitidas.
-- [ ] Verificar possibilidade de automação.
-- [ ] Verificar termos de uso.
-- [ ] Definir se entra no MVP ou fase posterior.
-- [ ] Documentar decisão.
+- [x] Pesquisar fontes públicas permitidas.
+- [x] Verificar possibilidade de automação.
+- [x] Verificar termos de uso.
+- [x] Definir se entra no MVP ou fase posterior.
+- [x] Documentar decisão.
 
 **Aceite:** decisão documentada sobre preço.
 
 ## T08 — Criar matriz de fontes
 Criar uma tabela contendo:
 
+- [x] Consolidar FENABRAVE, ABVE, SENATRAN e FIPE em `docs/source_matrix.md`.
+
 | Fonte | Dado | Período | Formato | Automação | Limitações |
 |---|---|---|---|---|---|
 
-**Aceite:** matriz atualizada com evidências reais.
+**Aceite:** matriz atualizada com evidências reais em `docs/source_matrix.md`.
 
 ---
 

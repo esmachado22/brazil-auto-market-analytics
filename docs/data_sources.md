@@ -116,3 +116,75 @@ Não foi identificado um arquivo público estruturado em CSV ou XLS na página d
 4. Calcular o total de eletrificados sem MHEV, seguindo o critério vigente da ABVE.
 5. Validar os totais mensais e o market share contra os valores publicados pela ABVE.
 
+## SENATRAN
+
+### Identificação
+
+- **Fonte:** Secretaria Nacional de Trânsito (SENATRAN), base RENAVAM.
+- **Papel no projeto:** fonte complementar para frota registrada, tratada como estoque e não como venda ou emplacamento.
+- **Status da validação:** fonte oficial validada em 26/10/2026.
+
+### URLs oficiais
+
+| Recurso | URL | Uso |
+|---|---|---|
+| Estatísticas de frota | <https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-Senatran/estatisticas-frota-de-veiculos-senatran> | Navegação por ano de referência |
+| Frota de Veículos — 2026 | <https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-Senatran/frota-de-veiculos-2026> | Arquivos mensais oficiais |
+| Dataset RENAVAM | <https://dados.transportes.gov.br/dataset/registro-nacional-de-veiculos-automotores-renavam> | Catálogo e recursos ZIP |
+
+### Cobertura, campos e formatos
+
+A página de estatísticas disponibiliza anos de referência desde 2000 e anteriores. A página de 2026 consultada listava arquivos mensais de janeiro a setembro de 2026. Os arquivos oficiais são planilhas Excel (`.xlsx`) separadas por assunto:
+
+- frota por UF e tipo de veículo;
+- frota por município e tipo de veículo;
+- UF, município, ano de fabricação e modelo;
+- UF, município e CEP;
+- UF, município e combustível;
+- UF, município e cor;
+- UF, município e potência;
+- UF, município e tipo de restrição;
+- UF, município, marca e modelo;
+- UF, município, tipo, espécie e eixos.
+
+Tamanhos observados por cabeçalho HTTP nos arquivos de setembro de 2026:
+
+| Arquivo | Tamanho observado |
+|---|---:|
+| Frota por UF e tipo | 30 KB |
+| Frota por município e tipo | 720 KB |
+| Ano de fabricação e modelo | 16,7 MB |
+| Combustível | 1,3 MB |
+| Potência | 23,1 MB |
+| Tipo, espécie e eixos | 7,6 MB |
+
+O catálogo RENAVAM também apresenta recursos ZIP mensais, incluindo arquivos de UF, município, marca, modelo e ano. O portal informa formato CSV/TXT/ZIP para o conjunto, enquanto a página mensal da SENATRAN disponibiliza os recortes em Excel.
+
+### Limitações
+
+- SENATRAN representa estoque de veículos registrados; não deve ser usado diretamente como fluxo de vendas ou emplacamentos.
+- As dimensões são distribuídas em arquivos diferentes. Não combinar arquivos de combustível, marca/modelo e potência sem validar a chave e o nível de agregação.
+- Os arquivos detalhados podem ser grandes e não devem ser versionados no Git.
+- A disponibilidade mensal e os nomes dos arquivos podem mudar; o coletor deverá consultar a página oficial e registrar a versão baixada.
+- O catálogo de dados apresenta periodicidade anual em seus metadados, embora mantenha recursos mensais; a periodicidade deve ser verificada pelos arquivos efetivamente publicados.
+
+### Decisão para o MVP
+
+SENATRAN fica fora da primeira ingestão do MVP principal. A fonte está validada para a Fase 6, depois de FENABRAVE, ABVE, Bronze, Silver, Gold e métricas principais funcionarem.
+
+## Preço de referência
+
+### Fonte avaliada: FIPE
+
+- **Fonte:** Fundação Instituto de Pesquisas Econômicas (FIPE).
+- **URL oficial:** <https://www.fipe.org.br/pt-br/indices/veiculos>.
+- **Definição:** preço médio de referência de veículos no mercado nacional, expresso em reais no mês/ano de referência.
+
+A FIPE informa que a consulta oficial é feita modelo a modelo, que não disponibiliza download da base completa ou parcial e que não oferece serviço de API. Também ressalta que o valor é apenas um parâmetro de negociação/avaliação e não representa necessariamente o preço efetivamente praticado.
+
+### Decisão
+
+Preço de referência não entra no MVP. A integração fica para a Fase 7 e somente será feita se houver uma forma autorizada e reproduzível de obter os dados. O projeto continuará usando nomes como `preco_referencia` ou `preco_fipe_referencia`, nunca “preço efetivamente vendido”.
+
+Consulte a [matriz de fontes](source_matrix.md) para o resumo comparativo das decisões.
+
