@@ -261,6 +261,10 @@ Criar SQL para:
 ## T24 — Validar métricas
 Comparar resultados Gold com os números publicados pelas fontes.
 
+- [x] Comparar Gold com os números publicados.
+- [x] Documentar a cobertura parcial do ranking FENABRAVE.
+- [x] Reconciliar o total ABVE e o detalhamento MHEV.
+
 **Aceite:** divergências documentadas e justificadas.
 
 ---
