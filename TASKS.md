@@ -177,12 +177,12 @@ NAO_INFORMADO
 ## T16 — Criar testes de qualidade
 Testar:
 
-- campos obrigatórios;
-- quantidade negativa;
-- duplicidade;
-- período;
-- chaves;
-- nulos críticos.
+- [x] campos obrigatórios;
+- [x] quantidade negativa;
+- [x] duplicidade;
+- [x] período;
+- [x] chaves;
+- [x] nulos críticos.
 
 **Aceite:** testes executáveis e com resultado registrado.
 
