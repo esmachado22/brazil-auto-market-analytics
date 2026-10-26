@@ -111,11 +111,11 @@ Criar uma tabela contendo:
 **Aceite:** framework permite adicionar novas fontes sem duplicar lógica.
 
 ## T10 — Implementar ingestão FENABRAVE
-- [ ] Baixar/ler fonte real.
-- [ ] Preservar conteúdo original.
-- [ ] Registrar metadados.
-- [ ] Gravar Bronze.
-- [ ] Validar volume.
+- [x] Baixar/ler fonte real.
+- [x] Preservar conteúdo original.
+- [x] Registrar metadados.
+- [x] Gravar Bronze.
+- [x] Validar volume.
 
 **Aceite:** dados reais FENABRAVE disponíveis em Bronze.
 
