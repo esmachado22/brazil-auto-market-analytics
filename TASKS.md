@@ -308,11 +308,11 @@ SENATRAN = estoque
 ## T28 — Integrar preço de referência
 Executar somente se a fonte estiver validada.
 
-- [ ] Implementar ingestão.
-- [ ] Registrar fonte.
-- [ ] Criar Silver.
-- [ ] Criar fato de preços.
-- [ ] Documentar limitações.
+- [x] Implementar ingestão de snapshots manuais validados.
+- [x] Registrar a fonte oficial FIPE.
+- [x] Criar Silver.
+- [x] Criar fato de preços.
+- [x] Documentar limitações de API e cobertura.
 
 **Aceite:** preço identificado como referência, não preço efetivo de venda.
 
