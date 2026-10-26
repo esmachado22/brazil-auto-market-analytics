@@ -247,14 +247,14 @@ Campos mínimos esperados:
 ## T23 — Criar consultas principais
 Criar SQL para:
 
-- top 10 modelos;
-- top 10 marcas;
-- volume mensal;
-- market share;
-- crescimento mensal;
-- combustão x híbrido x elétrico;
-- BEV/PHEV/HEV/MHEV;
-- evolução dos eletrificados.
+- [x] top 10 modelos;
+- [x] top 10 marcas;
+- [x] volume mensal;
+- [x] market share;
+- [x] crescimento mensal;
+- [x] combustão x híbrido x elétrico;
+- [x] BEV/PHEV/HEV/MHEV;
+- [x] evolução dos eletrificados.
 
 **Aceite:** consultas reproduzíveis.
 
