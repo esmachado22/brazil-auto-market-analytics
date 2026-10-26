@@ -456,7 +456,8 @@ O projeto só deve ser considerado concluído quando:
 - [x] Combustão x híbridos x elétricos funcionando.
 - [x] SENATRAN integrado ou decisão documentada.
 - [x] Preço integrado ou decisão documentada.
-- [ ] Power BI publicado.
+- [ ] Power BI publicado em workspace; o artefato local foi criado em
+  `Brazil Auto Market Analytics.pbix` e permanece ignorado pelo Git.
 - [x] IA funcionando, se incluída.
 - [x] README completo.
 - [x] Projeto reproduzível.
