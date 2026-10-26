@@ -295,6 +295,10 @@ FENABRAVE/ABVE = fluxo
 SENATRAN = estoque
 ```
 
+- [x] Criar fato Gold de frota.
+- [x] Marcar cada linha como `ESTOQUE`.
+- [x] Documentar a separação entre fluxo e estoque.
+
 **Aceite:** análises de frota não são confundidas com vendas.
 
 ---
