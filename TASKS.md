@@ -51,12 +51,12 @@ Status:
 # FASE 1 — Descoberta e validação das fontes
 
 ## T04 — Mapear fonte FENABRAVE
-- [ ] Identificar páginas/arquivos oficiais.
-- [ ] Identificar períodos disponíveis.
-- [ ] Identificar formatos.
-- [ ] Registrar URLs.
-- [ ] Registrar limitações.
-- [ ] Documentar em `docs/data_sources.md`.
+- [x] Identificar páginas/arquivos oficiais.
+- [x] Identificar períodos disponíveis.
+- [x] Identificar formatos.
+- [x] Registrar URLs.
+- [x] Registrar limitações.
+- [x] Documentar em `docs/data_sources.md`.
 
 **Aceite:** fonte FENABRAVE documentada e validada.
 
