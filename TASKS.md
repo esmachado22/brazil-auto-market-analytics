@@ -31,7 +31,7 @@ Status:
 **Aceite:** repositório organizado e pronto para desenvolvimento.
 
 ## T02 — Configurar ambiente Databricks Free
-- [ ] Documentar como conectar o projeto ao Databricks Free.
+- [~] Documentar como conectar o projeto ao Databricks Free.
 - [ ] Confirmar disponibilidade de notebooks/SQL.
 - [ ] Criar notebook de teste.
 - [ ] Executar operação simples em Python e PySpark.
@@ -39,10 +39,10 @@ Status:
 **Aceite:** notebook executa com sucesso no ambiente gratuito.
 
 ## T03 — Configurar Git e GitHub
-- [ ] Inicializar repositório.
-- [ ] Configurar branch principal.
-- [ ] Fazer primeiro commit.
-- [ ] Criar README inicial.
+- [x] Inicializar repositório.
+- [x] Configurar branch principal.
+- [x] Fazer primeiro commit.
+- [x] Criar README inicial.
 
 **Aceite:** projeto versionado e clonável.
 
