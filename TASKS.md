@@ -31,10 +31,10 @@ Status:
 **Aceite:** repositório organizado e pronto para desenvolvimento.
 
 ## T02 — Configurar ambiente Databricks Free
-- [~] Documentar como conectar o projeto ao Databricks Free.
-- [ ] Confirmar disponibilidade de notebooks/SQL.
-- [ ] Criar notebook de teste.
-- [ ] Executar operação simples em Python e PySpark.
+- [x] Documentar como conectar o projeto ao Databricks Free.
+- [x] Confirmar disponibilidade de notebooks/SQL.
+- [x] Criar notebook de teste.
+- [x] Executar operação simples em Python e PySpark.
 
 **Aceite:** notebook executa com sucesso no ambiente gratuito.
 
