@@ -233,10 +233,10 @@ Campos mínimos esperados:
 **Aceite:** comparação entre tecnologias funciona.
 
 ## T22 — Criar modelo analítico final
-- [ ] Validar dimensões.
-- [ ] Validar fatos.
-- [ ] Validar chaves.
-- [ ] Validar totais contra as fontes.
+- [x] Validar dimensões.
+- [x] Validar fatos.
+- [x] Validar chaves.
+- [x] Validar totais contra as fontes.
 
 **Aceite:** Gold pronta para análise.
 
