@@ -456,17 +456,18 @@ O projeto só deve ser considerado concluído quando:
 - [x] Combustão x híbridos x elétricos funcionando.
 - [x] SENATRAN integrado ou decisão documentada.
 - [x] Preço integrado ou decisão documentada.
-- [ ] Power BI publicado em workspace; o artefato local foi criado em
-  `Brazil Auto Market Analytics.pbix` e permanece ignorado pelo Git.
+- [x] Power BI local entregue em `Brazil Auto Market Analytics.pbix`; a
+  publicação em workspace Power BI foi explicitamente definida como fora do
+  escopo.
 - [x] IA funcionando, se incluída.
 - [x] README completo.
 - [x] Projeto reproduzível.
 - [x] Nenhuma credencial exposta.
 - [x] Release pública pronta.
 
-> Power BI está especificado e pronto para publicação em
-> `docs/power_bi_dashboard.md`; a publicação efetiva exige um workspace e
-> credenciais Power BI fornecidos pelo usuário.
+> O Power BI foi entregue como artefato local reproduzível em
+> `Brazil Auto Market Analytics.pbix`. A publicação em workspace Power BI não
+> faz parte do escopo deste projeto.
 
 # Regra final
 

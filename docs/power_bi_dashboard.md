@@ -28,8 +28,8 @@ deve ser carregado apenas a partir das tabelas Gold validadas descritas em
 - não inferir tecnologia faltante.
 
 Esta especificação é o artefato reproduzível do dashboard. A publicação em um
-workspace Power BI depende de credenciais e workspace do usuário e não é feita
-automaticamente pelo repositório.
+workspace Power BI foi definida como fora do escopo deste projeto; o entregável
+é o relatório local e sua especificação versionada.
 
 Foi criado localmente um relatório Power BI com as tabelas Gold de
 emplacamentos e eletrificados, cinco páginas e visuais iniciais. O arquivo

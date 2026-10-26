@@ -50,5 +50,6 @@ estoque, não vendas. A FIPE fornece referência média, não preço de transaç
 e exige snapshots manuais validados por não haver API ou base integral usada
 por este projeto. Tecnologia não é inferida quando a fonte não a informa.
 
-O dashboard está especificado em `docs/power_bi_dashboard.md`; a publicação em
-workspace Power BI requer credenciais e workspace do usuário.
+O dashboard está especificado em `docs/power_bi_dashboard.md` e foi entregue
+também como relatório local `Brazil Auto Market Analytics.pbix`. A publicação
+em workspace Power BI está fora do escopo deste projeto.
