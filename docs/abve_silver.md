@@ -6,7 +6,7 @@ O módulo `src/transformations/abve.py` transforma o comunicado HTML preservado 
 
 - `BEV` → `ELETRICO`;
 - `PHEV`, `HEV`, `HEV Flex` e `MHEV` → `HIBRIDO`;
-- `TOTAL` → `ELETRIFICADOS`;
+- `TOTAL` é mantido como agregado e recebe `OUTRO` na classificação canônica;
 - `BEV + PHEV + HEV + HEV Flex` deve reconciliar com `TOTAL`;
 - `MHEV` permanece como categoria original e fica fora do total de eletrificados;
 - `MHEV 48V + MHEV 12V` deve reconciliar com `MHEV` quando os três valores forem publicados.

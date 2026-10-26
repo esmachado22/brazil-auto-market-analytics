@@ -13,18 +13,9 @@ from pathlib import Path
 from typing import Any
 
 from src.ingestion.framework import IngestionError, sha256_file
+from src.transformations.technology import classify_technology, is_abve_electrified_component
 
 
-TECHNOLOGY_MAP = {
-    "BEV": "ELETRICO",
-    "PHEV": "HIBRIDO",
-    "HEV": "HIBRIDO",
-    "HEV Flex": "HIBRIDO",
-    "MHEV": "HIBRIDO",
-    "MHEV 48V": "HIBRIDO",
-    "MHEV 12V": "HIBRIDO",
-    "TOTAL": "ELETRIFICADOS",
-}
 COMPONENT_CATEGORIES = ("BEV", "PHEV", "HEV", "HEV Flex")
 CATEGORY_PATTERN = re.compile(
     r"\b(?P<category>HEV Flex|PHEV|BEV|HEV|TOTAL)\s*:\s*"
@@ -102,10 +93,10 @@ def _record(
         "source_hash": metadata.file_hash,
         "source_locator": source_locator,
         "category_original": category_original,
-        "technology_standardized": TECHNOLOGY_MAP[category_original],
+        "technology_standardized": classify_technology(category_original),
         "aggregation_level": aggregation_level,
         "is_component": is_component,
-        "included_in_electrified_total": category_original in COMPONENT_CATEGORIES or category_original == "TOTAL",
+        "included_in_electrified_total": is_abve_electrified_component(category_original),
         "quantity": quantity,
         "share_pct": share_pct,
     }

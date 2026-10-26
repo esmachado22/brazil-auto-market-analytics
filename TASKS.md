@@ -167,6 +167,11 @@ OUTRO
 NAO_INFORMADO
 ```
 
+- [x] Criar regra única e reutilizável.
+- [x] Preservar categoria original.
+- [x] Separar agregados de tecnologias.
+- [x] Documentar regra e exceção MHEV da ABVE.
+
 **Aceite:** regra reproduzível e documentada.
 
 ## T16 — Criar testes de qualidade
