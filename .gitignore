@@ -28,6 +28,7 @@ logs/
 *.xls
 *.zip
 *.gz
+*.pbix
 
 # Databricks e ferramentas locais
 .databricks/

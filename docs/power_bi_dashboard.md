@@ -30,3 +30,8 @@ deve ser carregado apenas a partir das tabelas Gold validadas descritas em
 Esta especificação é o artefato reproduzível do dashboard. A publicação em um
 workspace Power BI depende de credenciais e workspace do usuário e não é feita
 automaticamente pelo repositório.
+
+Foi criado localmente um relatório Power BI com as tabelas Gold de
+emplacamentos e eletrificados, cinco páginas e visuais iniciais. O arquivo
+`Brazil Auto Market Analytics.pbix` fica no diretório do projeto, mas permanece
+fora do Git por ser um artefato binário local.
