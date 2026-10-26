@@ -61,11 +61,11 @@ Status:
 **Aceite:** fonte FENABRAVE documentada e validada.
 
 ## T05 — Mapear fonte ABVE
-- [ ] Identificar dados de eletrificados.
-- [ ] Identificar categorias.
-- [ ] Identificar histórico disponível.
-- [ ] Registrar URLs.
-- [ ] Documentar limitações.
+- [x] Identificar dados de eletrificados.
+- [x] Identificar categorias.
+- [x] Identificar histórico disponível.
+- [x] Registrar URLs.
+- [x] Documentar limitações.
 
 **Aceite:** fonte ABVE documentada.
 

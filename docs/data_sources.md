@@ -55,3 +55,64 @@ Não foi identificado um arquivo público estruturado em CSV ou XLS no índice d
 5. Comparar os totais extraídos com o resumo do próprio relatório.
 6. Documentar qualquer falha de extração ou ausência de período; não preencher lacunas com dados inventados.
 
+## ABVE
+
+### Identificação
+
+- **Fonte:** Associação Brasileira do Veículo Elétrico (ABVE), por meio do ABVE Data.
+- **Papel no projeto:** fonte complementar para emplacamentos de veículos leves eletrificados e suas tecnologias.
+- **Status da validação:** fonte oficial validada em 26/10/2026.
+
+### URLs oficiais
+
+| Recurso | URL | Uso |
+|---|---|---|
+| ABVE Data — visão geral | <https://abve.org.br/bi-geral/> | Dashboard principal do mercado de eletrificados |
+| ABVE Data — Eletrificados+MHEV | <https://abve.org.br/abve-data/eletrificadosmhev/> | Evolução por tecnologia e comparação com MHEV |
+| Arquivo de notícias ABVE Data | <https://abve.org.br/category/abvedata/> | Comunicados mensais e evidências publicadas |
+
+### Cobertura e categorias
+
+A série histórica publicada pela ABVE Data acompanha os veículos leves eletrificados desde janeiro de 2012. A classificação vigente separa:
+
+- **BEV:** veículo 100% elétrico;
+- **PHEV:** híbrido com recarga externa;
+- **HEV:** híbrido sem recarga externa, com tração elétrica;
+- **HEV Flex:** híbrido flex sem recarga externa, com tração elétrica;
+- **MHEV:** micro-híbrido, acompanhado separadamente.
+
+Desde janeiro de 2025, a ABVE não inclui MHEV no total de veículos eletrificados, pois a tecnologia não possui tração elétrica autônoma. O total de eletrificados usado no projeto deve seguir a definição da ABVE: `BEV + PHEV + HEV + HEV_FLEX`. MHEV deve permanecer disponível como categoria original, mas fora desse total.
+
+Na consulta realizada em 26/10/2026, a ABVE publicou dados mensais até setembro de 2026, incluindo volumes, participação no mercado de veículos leves, comparações mensais e anuais e recortes geográficos em alguns comunicados.
+
+### Formato e conteúdo
+
+O ABVE Data é disponibilizado principalmente como dashboard web interativo e como comunicados HTML mensais. Os comunicados apresentam tabelas ou listas com:
+
+- período de referência;
+- total mensal de eletrificados leves;
+- BEV, PHEV, HEV e HEV Flex;
+- MHEV, incluindo 12V e 48V quando informado;
+- participação de cada tecnologia;
+- participação dos eletrificados no mercado de veículos leves;
+- comparações com mês anterior e mesmo mês do ano anterior;
+- alguns recortes por estado, município e região.
+
+Não foi identificado um arquivo público estruturado em CSV ou XLS na página do ABVE Data consultada. A ingestão deve preservar a página ou evidência original, registrar o período e documentar a extração feita do dashboard ou do comunicado.
+
+### Limitações
+
+- O dashboard pode depender de elementos interativos que não aparecem no HTML estático.
+- Os comunicados mensais podem apresentar apenas recortes e não necessariamente a série completa por marca e modelo.
+- A ABVE Data e a FENABRAVE podem usar universos diferentes; a comparação deve respeitar a definição de veículos leves e o período de cada fonte.
+- A ABVE publica números de mercado e classificação tecnológica, mas a disponibilidade de marca/modelo detalhados deve ser verificada antes de modelar essa dimensão.
+- Não misturar o total `eletrificados` com `eletrificados + MHEV`.
+
+### Estratégia definida para o MVP
+
+1. Usar os comunicados e o ABVE Data como fonte oficial complementar.
+2. Preservar a classificação original e criar a classificação padronizada do projeto.
+3. Armazenar BEV, PHEV, HEV, HEV Flex e MHEV em registros separados quando houver granularidade.
+4. Calcular o total de eletrificados sem MHEV, seguindo o critério vigente da ABVE.
+5. Validar os totais mensais e o market share contra os valores publicados pela ABVE.
+
