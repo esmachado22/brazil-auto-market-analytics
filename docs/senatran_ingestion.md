@@ -12,6 +12,7 @@ O recurso usado no MVP é setembro de 2026:
 
 - Tamanho publicado pelo catálogo: **136.926.215 bytes** (aprox. 130,4 MiB).
 - O ZIP contém um TXT de **1.219.605.816 bytes** (aprox. 1,14 GiB) descompactado; essa expansão foi registrada para orientar o processamento Silver em streaming/chunks.
+- Os arquivos auxiliares oficiais de combustível e potência são armazenados em `data/bronze/senatran/2026-09/auxiliary/`, com 1.327.325 e 24.253.009 bytes, respectivamente.
 - Destino: `data/bronze/senatran/2026-09/`.
 - O arquivo permanece ignorado pelo Git por ser um artefato grande.
 - O arquivo `.metadata.json` ao lado registra URL, período, tamanho, SHA-256 e timestamp de ingestão.

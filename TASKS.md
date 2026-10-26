@@ -280,12 +280,12 @@ Somente após o MVP principal funcionar.
 - [x] Documentar origem.
 
 ## T26 — Criar Silver SENATRAN
-- [ ] Combustível.
-- [ ] Marca/modelo.
-- [ ] UF.
-- [ ] Município.
-- [ ] Ano.
-- [ ] Potência, quando disponível.
+- [x] Combustível.
+- [x] Marca/modelo.
+- [x] UF.
+- [x] Município.
+- [x] Ano.
+- [x] Potência, quando disponível.
 
 ## T27 — Criar fato de frota
 Manter clara a diferença entre:

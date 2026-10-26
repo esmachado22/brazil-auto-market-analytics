@@ -6,6 +6,7 @@ from zipfile import ZipFile
 from src.ingestion.framework import IngestionError, IngestionRecord
 from src.ingestion.senatran import (
     SenatranResource,
+    build_auxiliary_specs,
     build_spec,
     parse_resources,
     validate_archive,
@@ -53,6 +54,14 @@ class SenatranIngestionTests(unittest.TestCase):
 
         self.assertEqual(spec.source_name, "SENATRAN_RENAVAM")
         self.assertEqual(spec.destination_dir, Path("data/bronze/senatran/2026-09"))
+
+    def test_build_auxiliary_specs_uses_official_fuel_and_power_files(self) -> None:
+        specs = build_auxiliary_specs("2026-09", destination_root=Path("data/bronze/senatran"))
+
+        self.assertEqual(len(specs), 2)
+        self.assertIn("COMBUSTIVEL", specs[0].source_file)
+        self.assertIn("POTENCIA", specs[1].source_file)
+        self.assertTrue(all(spec.destination_dir.name == "auxiliary" for spec in specs))
 
     def test_validate_archive_accepts_zip(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

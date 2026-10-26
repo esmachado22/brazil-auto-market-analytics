@@ -19,6 +19,7 @@ SENATRAN_CKAN_API_URL = (
     "?id=registro-nacional-de-veiculos-automotores-renavam"
 )
 SENATRAN_DATASET_URL = "https://dados.transportes.gov.br/dataset/registro-nacional-de-veiculos-automotores-renavam"
+SENATRAN_OFFICIAL_PAGE_URL = "https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-Senatran/frota-de-veiculos-2026"
 MONTHS_PT = {
     1: "janeiro",
     2: "fevereiro",
@@ -126,6 +127,58 @@ def validate_archive(record: IngestionRecord) -> None:
                 raise IngestionError(f"SENATRAN archive has no members: {path}")
     except BadZipFile as exc:
         raise IngestionError(f"SENATRAN archive cannot be read: {path}") from exc
+
+
+def build_auxiliary_specs(period: str, *, destination_root: Path) -> list[SourceSpec]:
+    """Build official monthly XLSX specs for fuel and power aggregates."""
+
+    match = PERIOD_PATTERN.fullmatch(period)
+    if not match:
+        raise ValueError("period must use YYYY-MM format")
+    month_name = MONTHS_PT[int(match.group("month"))].capitalize()
+    folder = f"frota-de-veiculos-{match.group('year')}-2"
+    base_url = f"https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-Senatran/{folder}"
+    files = (
+        f"D_Frota_por_UF_Municipio_COMBUSTIVEL_{month_name}_{match.group('year')}.xlsx",
+        f"E_Frota_por_UF_Municipio_POTENCIA_{month_name}_{match.group('year')}.xlsx",
+    )
+    return [
+        SourceSpec(
+            source_name="SENATRAN_RENAVAM",
+            source_url=f"{base_url}/{file_name}/@@download/file",
+            reference_period=period,
+            source_file=file_name,
+            destination_dir=Path(destination_root) / period / "auxiliary",
+        )
+        for file_name in files
+    ]
+
+
+def validate_xlsx(record: IngestionRecord) -> None:
+    """Validate that an auxiliary SENATRAN source is a non-empty XLSX file."""
+
+    path = Path(record.local_path)
+    if record.file_size_bytes <= 0 or not path.is_file() or path.suffix.lower() != ".xlsx":
+        raise IngestionError(f"SENATRAN auxiliary file is empty, missing or not XLSX: {path}")
+    if path.read_bytes()[:2] != b"PK":
+        raise IngestionError(f"SENATRAN auxiliary file is not an XLSX package: {path}")
+
+
+def ingest_auxiliary_period(
+    period: str,
+    *,
+    destination_root: Path = Path("data/bronze/senatran"),
+    timeout_seconds: int = 120,
+) -> list[IngestionRecord]:
+    """Download fuel and power XLSX resources published on the SENATRAN page."""
+
+    framework = IngestionFramework()
+    records: list[IngestionRecord] = []
+    for spec in build_auxiliary_specs(period, destination_root=destination_root):
+        record = framework.download(spec, timeout_seconds=timeout_seconds)
+        validate_xlsx(record)
+        records.append(record)
+    return records
 
 
 def ingest_period(
