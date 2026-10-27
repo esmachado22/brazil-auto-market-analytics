@@ -10,4 +10,12 @@ Fluxo:
 2. Executar `src.ingestion.fipe` para gravar Bronze e metadados.
 3. Executar `src.transformations.fipe` para criar `data/silver/fipe/<period>/reference_prices.csv` e `data/gold/fato_precos.csv`.
 
-Todos os registros recebem `price_type=REFERENCE`. O valor não deve ser descrito como preço de venda, preço de anúncio ou preço transacionado. A cobertura depende das consultas manuais capturadas; o pipeline não tenta produzir uma falsa base completa.
+O Silver preserva uma linha por versão FIPE. O Gold agrupa por período, marca,
+modelo padronizado e ano-modelo, mantendo `price_min_brl`, `price_max_brl`,
+`variant_count` e `price_central_brl = (min + max) / 2`. O campo `price_brl` é
+mantido como alias de compatibilidade para o ponto central.
+
+Todos os registros Gold recebem `price_type=REFERENCE_RANGE_CENTRAL`. O ponto
+central não deve ser descrito como média oficial, preço de venda, preço de
+anúncio ou preço transacionado. A cobertura depende das consultas manuais
+capturadas; o pipeline não tenta produzir uma falsa base completa.

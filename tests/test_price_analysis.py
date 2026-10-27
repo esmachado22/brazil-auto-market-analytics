@@ -17,7 +17,8 @@ class PriceAnalysisTests(unittest.TestCase):
         sql = Path("sql/price_analysis.sql").read_text(encoding="utf-8")
         self.assertIn("gold.fato_precos", sql)
         self.assertIn("gold.fato_emplacamentos", sql)
-        self.assertIn("price_type = 'REFERENCE'", sql)
+        self.assertIn("price_type = 'REFERENCE_RANGE_CENTRAL'", sql)
+        self.assertIn("price_central_brl", sql)
         self.assertIn("LEFT JOIN prices", sql)
         self.assertNotIn("SELECT *", sql.upper())
 

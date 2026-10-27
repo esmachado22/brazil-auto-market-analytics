@@ -13,7 +13,7 @@ visuais.
 | `dim_modelo` | dimensão | modelo e categoria |
 | `fato_emplacamentos` | fato | ranking e volume publicado pela FENABRAVE |
 | `fato_eletrificados` | fato | volumes mensais ABVE por tecnologia |
-| `fato_precos` | fato | preço médio de referência FIPE |
+| `fato_precos` | fato | faixa FIPE por modelo/ano e ponto central da faixa |
 | `fato_frota` | fato | estoque SENATRAN por município, marca e modelo |
 
 ## Relacionamentos
@@ -35,7 +35,7 @@ silenciosamente inferida no modelo.
 ```DAX
 Volume publicado = SUM(fato_emplacamentos[quantity])
 Modelos publicados = DISTINCTCOUNT(fato_emplacamentos[modelo_key])
-Preço referência médio = AVERAGE(fato_precos[price_brl])
+Preço referência central = AVERAGE(fato_precos[price_central_brl])
 Volume eletrificados =
     CALCULATE(
         SUM(fato_eletrificados[quantity]),

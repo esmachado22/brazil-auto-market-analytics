@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from src.ingestion.fipe import IngestionError, is_official_url, validate_snapshot_row
-from src.transformations.fipe import build_price_tables, price_key
+from src.transformations.fipe import build_price_ranges, build_price_tables, price_key
 
 
 class FipePriceTests(unittest.TestCase):
@@ -47,12 +47,30 @@ class FipePriceTests(unittest.TestCase):
             report = build_price_tables("2026-10", bronze_root=root / "bronze/fipe", silver_root=root / "silver/fipe", gold_root=root / "gold")
 
             self.assertEqual(report["status"], "PASS")
-            self.assertEqual(report["price_type"], "REFERENCE")
+            self.assertEqual(report["price_type"], "REFERENCE_RANGE_CENTRAL")
             with (root / "gold/fato_precos.csv").open(encoding="utf-8", newline="") as file_obj:
                 row = next(csv.DictReader(file_obj))
-            self.assertEqual(row["price_type"], "REFERENCE")
+            self.assertEqual(row["price_type"], "REFERENCE_RANGE_CENTRAL")
             self.assertEqual(row["price_brl"], "123456.78")
+            self.assertEqual(row["price_min_brl"], "123456.78")
+            self.assertEqual(row["price_max_brl"], "123456.78")
+            self.assertEqual(row["variant_count"], "1")
             self.assertTrue(price_key(self._row()).startswith("PRECO_"))
+
+    def test_build_price_ranges_keeps_min_max_and_midpoint(self) -> None:
+        rows = [self._row(), {**self._row(), "fipe_code": "002135-1", "price_brl": "150.000,00"}]
+
+        ranges = build_price_ranges(
+            rows,
+            metadata={"source_file": "snapshot.csv", "file_hash": "hash"},
+            source_path=Path("snapshot.csv"),
+        )
+
+        self.assertEqual(len(ranges), 1)
+        self.assertEqual(ranges[0]["variant_count"], 2)
+        self.assertEqual(ranges[0]["price_min_brl"], 123456.78)
+        self.assertEqual(ranges[0]["price_max_brl"], 150000.0)
+        self.assertEqual(ranges[0]["price_central_brl"], 136728.39)
 
 
 if __name__ == "__main__":
