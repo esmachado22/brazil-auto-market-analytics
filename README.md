@@ -14,6 +14,9 @@ referência.
 - modelo semântico e especificação de dashboard Power BI;
 - análise executiva estruturada, determinística e sem invenção de dados.
 
+O inventário dos dados locais, seus períodos e caminhos está em
+`docs/data_inventory.md`.
+
 ## Estrutura
 
 ```text
